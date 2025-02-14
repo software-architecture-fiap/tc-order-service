@@ -1,0 +1,15 @@
+services:
+  postgres-test:
+    image: postgres:15
+    container_name: postgres-test
+    restart: always
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test_db
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "test_user"]
+      interval: 5s
+      retries: 5

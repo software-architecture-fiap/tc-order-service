@@ -1,0 +1,41 @@
+networks:
+  app_network:
+    external: true
+
+services:
+  order-service:
+    build: .
+    container_name: order-service
+    ports:
+      - "8001:8001"
+    networks:
+    - app_network
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    env_file:
+      - .env
+    restart: always
+
+  postgres-db:
+    image: postgres:15
+    container_name: order-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P0stgr3S
+      POSTGRES_DB: order_database
+    ports:
+      - "5543:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "order_database"]
+      interval: 5s
+      retries: 5
+      timeout: 3s
+
+volumes:
+  pgdata:

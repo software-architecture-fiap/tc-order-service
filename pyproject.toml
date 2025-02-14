@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "order-service"
+version = "0.1.0"
+description = "Microserviço para gestão das ordens de serviço, produtos e categorias"
+authors = ["magnifficco.io"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.8"
+uvicorn = "^0.34.0"
+python-dotenv = "^1.0.1"
+psycopg2-binary = "^2.9.10"
+sqlalchemy = "^2.0.38"
+alembic = "^1.14.1"
+pytest = "^8.3.4"
+httpx = "^0.28.1"
+
+requests = "^2.32.3"
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "app.main:run_server"
