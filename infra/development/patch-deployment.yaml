@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: order-service
+          image: app/tc-order-service:latest
+          env:
+            - name: ENVIRONMENT
+              value: "development"

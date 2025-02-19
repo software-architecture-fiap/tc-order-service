@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-service-config
+data:
+  DATABASE_HOST: "order-db"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "order_database"
+  SERVICE_PORT: "8001"
+  LOG_LEVEL: "info"
