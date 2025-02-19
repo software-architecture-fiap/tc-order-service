@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  labels:
+    app: order-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: order-service:latest
+          ports:
+            - containerPort: 8001
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+              ephemeral-storage: "1Gi"
+            limits:
+              memory: "512Mi"
+              storage: "1Gi"
+          envFrom:
+            - configMapRef:
+                name: order-service-config
+                items:
+                  - key: DATABASE_HOST
+                    path: DATABASE_HOST
+                  - key: DATABASE_NAME
+                    path: DATABASE_NAME
+                  - key: DATABASE_PORT
+                    path: DATABASE_PORT
+                  - key: LOG_LEVEL
+                    path: LOG_LEVEL
+                  - key: SERVICE_PORT
+                    path: SERVICE_PORT
+          volumeMounts:
+            - name: env-file
+              mountPath: /app/.env
+              subPath: .env
+      volumes:
+        - name: env-file
+          configMap:
+            name: order-service-config

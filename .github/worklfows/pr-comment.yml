@@ -1,0 +1,52 @@
+name: Comment on Pull Request
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  post-comment:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check comment
+        id: check-comment
+        uses: peter-evans/find-comment@v2
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: "Regras para deploy e convenção de nomenclatura da branch"
+          token: ${{ secrets.GITHUB_TOKEN }}
+     
+      - name: Comment on Pull Request
+        if: steps.check-comment.outputs.comment-id == ''
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: |
+            Regras para deploy e convenção de nomenclatura da branch.
+
+            ### **🌱 Deploy para o ambiente de desenvolvimento:**
+            - Para realizar o deploy no ambiente de **desenvolvimento**, comente no PR:  
+              ```
+              /deploy
+              ```
+            
+            ### **🏭 Deploy para o ambiente de produção (SemVer):**
+            Utilizamos **[Versionamento Semântico (SemVer)](https://semver.org/lang/pt-BR/)** para controlar as versões do repositório.  
+            Certifique-se de nomear a branch corretamente:
+
+            | **Tipo de Versão**  | **Prefixo de Branch**  | **Exemplo**              |
+            |--------------------|----------------------|--------------------------|
+            | 🐞 **Correção (Patch)** | `bugfix/`           | `bugfix/corrige-login`   |
+            | ✨ **Nova feature (Minor)** | `feature/`         | `feature/novo-cadastro`  |
+            | 🚀 **Mudança relevante (Major)** | `release/`         | `release/v2.0.0`        |
+            | 📄 **Docs ou Ajustes** | `doc/` ou `misc/`   | `doc/atualiza-readme`    |
+
+            **⚠️ Importante:**  
+            - **Apenas branches corretas podem ser promovidas para produção**.  
+            - Versões são incrementadas automaticamente com base no prefixo da branch.
+
+            🔹 _Se tiver dúvidas, fale conosco no discord!_  
+
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
