@@ -1,6 +1,8 @@
 name: Deploy to development
 
 on:
+  pull_request:
+    types: [opened, synchronize]
   issue_comment:
     types: [created]
 
