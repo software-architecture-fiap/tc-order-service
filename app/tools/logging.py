@@ -16,7 +16,8 @@ logging.basicConfig(
     level=logging.INFO,
     format=(
         '%(asctime)s - %(filename)s - %(pathname)s - %(name)s - '
-        '%(lineno)s - %(levelname)s - %(funcName)s - %(threadName)s - %(message)s'
+        '%(lineno)s - %(levelname)s - %(funcName)s - '
+        '%(threadName)s - %(message)s'
     ),
     handlers=[logging.FileHandler(log_filepath), logging.StreamHandler()],
 )

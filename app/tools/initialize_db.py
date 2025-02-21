@@ -4,6 +4,7 @@ from ..models.models import Category, Product
 
 logger = logging.getLogger('Application')
 
+
 def initialize_db(db: Session) -> None:
     """Inicializa o banco de dados com dados padrão para categorias e produtos.
 
@@ -24,7 +25,8 @@ def initialize_db(db: Session) -> None:
     ]
 
     # Verifica categorias existentes no banco
-    existing_categories = {category.name: category.id for category in db.query(Category).all()}
+    existing_categories = {
+        category.name: category.id for category in db.query(Category).all()}
 
     for category in categories:
         if category['name'] in existing_categories:
@@ -34,7 +36,8 @@ def initialize_db(db: Session) -> None:
             db.add(db_category)
             db.commit()  # 🔹 Garante que a categoria seja salva para obter o ID
             db.refresh(db_category)
-            existing_categories[db_category.name] = db_category.id  # Atualiza o dicionário
+            # Atualiza o dicionário
+            existing_categories[db_category.name] = db_category.id
             logger.info(f"Categoria adicionada: {db_category.name}")
 
     # ------------------------ CRIAR PRODUTOS ------------------------
@@ -65,7 +68,9 @@ def initialize_db(db: Session) -> None:
         },
         {
             'name': 'Pizza Pepperoni',
-            'description': 'Pizza with tomato sauce, mozzarella, and pepperoni',
+            'description': (
+                'Pizza with tomato sauce, mozzarella, and pepperoni'
+            ),
             'price': 27.00,
             'category_name': 'Pizzas',
         },
@@ -75,33 +80,73 @@ def initialize_db(db: Session) -> None:
             'price': 28.00,
             'category_name': 'Pizzas',
         },
-        {'name': 'Batata Frita', 'description': 'Portion of crispy french fries', 'price': 8.00, 'category_name': 'Acompanhamentos'},
-        {'name': 'Anéis de Cebola', 'description': 'Portion of breaded onion rings', 'price': 9.00, 'category_name': 'Acompanhamentos'},
+        {
+            'name': 'Batata Frita',
+            'description': 'Portion of crispy french fries',
+            'price': 8.00,
+            'category_name': 'Acompanhamentos',
+        },
+        {
+            'name': 'Anéis de Cebola',
+            'description': 'Portion of breaded onion rings',
+            'price': 9.00,
+            'category_name': 'Acompanhamentos'
+        },
         {
             'name': 'Salada Caesar',
-            'description': 'Caesar salad with lettuce, croutons, and parmesan cheese',
+            'description': (
+                'Caesar salad with lettuce, croutons, and parmesan cheese'
+                ),
             'price': 10.00,
             'category_name': 'Acompanhamentos',
         },
-        {'name': 'Coca-Cola', 'description': 'Cola soft drink', 'price': 5.00, 'category_name': 'Bebidas'},
-        {'name': 'Suco de Laranja', 'description': 'Natural orange juice', 'price': 6.00, 'category_name': 'Bebidas'},
-        {'name': 'Água Mineral', 'description': 'Still mineral water', 'price': 4.00, 'category_name': 'Bebidas'},
+        {
+            'name': 'Coca-Cola',
+            'description': 'Cola soft drink',
+            'price': 5.00,
+            'category_name': 'Bebidas'
+        },
+        {
+            'name': 'Suco de Laranja',
+            'description': 'Natural orange juice',
+            'price': 6.00, 'category_name': 'Bebidas'
+        },
+        {
+            'name': 'Água Mineral',
+            'description': 'Still mineral water',
+            'price': 4.00,
+            'category_name': 'Bebidas'
+        },
         {
             'name': 'Brownie de Chocolate',
             'description': 'Chocolate brownie with walnuts',
             'price': 7.00,
             'category_name': 'Sobremesas',
         },
-        {'name': 'Torta de Maçã', 'description': 'Apple pie with cinnamon', 'price': 8.00, 'category_name': 'Sobremesas'},
-        {'name': 'Sorvete de Baunilha', 'description': 'Vanilla ice cream', 'price': 6.00, 'category_name': 'Sobremesas'},
+        {
+            'name': 'Torta de Maçã',
+            'description': 'Apple pie with cinnamon',
+            'price': 8.00,
+            'category_name': 'Sobremesas'
+        },
+        {
+            'name': 'Sorvete de Baunilha',
+            'description': 'Vanilla ice cream',
+            'price': 6.00,
+            'category_name': 'Sobremesas'
+        },
     ]
 
     # Verifica produtos existentes no banco
-    existing_product_names = {product.name for product in db.query(Product.name).all()}
+    existing_product_names = {
+        product.name for product in db.query(Product.name).all()}
 
     for product in products:
         if product['name'] in existing_product_names:
-            logger.debug(f"Produto já existe: {product['name']} - Categoria: {product['category_name']}")
+            logger.debug(
+                f"Produto já existe: {product['name']} - "
+                F"Categoria: {product['category_name']}"
+                )
         else:
             category_id = existing_categories.get(product['category_name'])
             if category_id:
@@ -113,9 +158,14 @@ def initialize_db(db: Session) -> None:
                     enabled=True,  # 🔹 Define como ativo por padrão
                 )
                 db.add(db_product)
-                logger.info(f"Produto adicionado: {db_product.name} - Categoria: {product['category_name']}")
+                logger.info(
+                    f"Produto adicionado: {db_product.name} - "
+                    f"Categoria: {product['category_name']}"
+                    )
             else:
-                logger.warning(f"Categoria não encontrada para produto: {product['name']}")
+                logger.warning(
+                    f"Categoria não encontrada para produto: {product['name']}"
+                    )
 
     db.commit()
     logger.info('Banco de dados inicializado com sucesso.')

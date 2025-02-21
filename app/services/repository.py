@@ -12,6 +12,7 @@ from ..tools.logging import logger
 
 # Definição da URL do serviço de pagamento
 PAYMENT_SERVICE_URL = env.get("PAYMENT_SERVICE_URL")
+PRODUCT_NOT_FOUND = "Produto não encontrado"
 
 
 # ---------------------- INTEGRAÇÃO COM O PAYMENT-SERVICE ------------------
@@ -311,7 +312,7 @@ def get_order(db: Session, order_id: int) -> Optional[dict]:
                 "name": (
                     item.product.name
                     if item.product
-                    else "Produto não encontrado"
+                    else PRODUCT_NOT_FOUND
                 ),
                 "price": item.product.price if item.product else 0.0,
                 "quantity": item.quantity
@@ -370,7 +371,7 @@ def get_orders(db: Session, skip: int = 0, limit: int = 10) -> List[dict]:
                     "name": (
                         item.product.name
                         if item.product
-                        else "Produto não encontrado"
+                        else PRODUCT_NOT_FOUND
                     ),
                     "price": item.product.price if item.product else 0.0,
                     "quantity": item.quantity
@@ -554,7 +555,7 @@ def update_order_status(
                     "name": (
                         item.product.name
                         if item.product
-                        else "Produto não encontrado"
+                        else PRODUCT_NOT_FOUND
                     ),
                     "price": item.product.price if item.product else 0.0,
                     "quantity": item.quantity
