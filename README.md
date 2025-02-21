@@ -172,3 +172,5 @@ Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICEN
 Se você encontrar problemas ou tiver dúvidas, sinta-se à vontade para abrir um *issue* ou fazer uma contribuição!
 
 ---
+
+
