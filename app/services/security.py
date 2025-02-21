@@ -35,7 +35,8 @@ def authenticate_user(username: str, password: str):
             raise HTTPException(
                 status_code=HTTP_401_UNAUTHORIZED,
                 detail="Credenciais inválidas")
-    except requests.RequestException as e:
+    # except requests.RequestException as e:
+    except requests.RequestException:
         logger.error(HTTPException(
             status_code=HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Erro ao conectar com o serviço de autenticação"))

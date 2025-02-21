@@ -93,12 +93,21 @@ class PaymentStatus(str, Enum):
 
 
 class OrderStatus(str, Enum):
-    REQUESTED = "requested"                 # Pedido criado, aguardando pagamento
-    PAID = "paid"                           # Pagamento confirmado, pedido será preparado
-    PREPARING = "preparing"                 # Pedido sendo preparado
-    READY_FOR_PICKUP = "ready_for_pickup"   # Pedido pronto para retirada/entrega
-    OUT_FOR_DELIVERY = "out_for_delivery"   # Pedido saiu para entrega
-    DELIVERED = "delivered"                 # Pedido entregue ao cliente
-    CANCELLED = "cancelled"                 # Pedido cancelado antes do pagamento
-    REFUNDED = "refunded"                   # Pedido cancelado e reembolsado
-    REJECTED = "rejected"                   # Pedido recusado (por falta de estoque, erro, etc.)
+    # Pedido criado, aguardando pagamento
+    REQUESTED = "requested"
+    # Pagamento confirmado, pedido será preparado
+    PAID = "paid"
+    # Pedido sendo preparado
+    PREPARING = "preparing"
+    # Pedido pronto para retirada/entrega
+    READY_FOR_PICKUP = "ready_for_pickup"
+    # Pedido saiu para entrega
+    OUT_FOR_DELIVERY = "out_for_delivery"
+    # Pedido entregue ao cliente
+    DELIVERED = "delivered"
+    # Pedido cancelado antes do pagamento
+    CANCELLED = "cancelled"
+    # Pedido cancelado e reembolsado
+    REFUNDED = "refunded"
+    # Pedido recusado (por falta de estoque, erro, etc.
+    REJECTED = "rejected"
