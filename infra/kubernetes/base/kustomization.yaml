@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - order/deployment.yaml
   - order/service.yaml
+  - order/order-service-config.yaml
   - db/postgres-db-pvc.yaml
   - db/postgres-db-deployment.yaml
   - db/postgres-db-service.yaml
