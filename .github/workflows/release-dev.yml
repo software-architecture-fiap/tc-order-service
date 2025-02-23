@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build-deploy-dev:
-    if: contains(github.event.comment.body, '/deploy')
+    if: ${{ github.event_name == 'issue_comment' && contains(github.event.comment.body, '/deploy') && github.actor != 'github-actions[bot]' && github.actor != 'sonarqubecloud[bot]' }}
     runs-on: ubuntu-latest
 
     outputs:
