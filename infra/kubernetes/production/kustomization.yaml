@@ -4,18 +4,18 @@ kind: Kustomization
 namespace: production
 
 resources:
-  - ../base
-  - namespace.yaml
+- ../base
+- namespace.yaml
 
 patches:
-  - path: patch-deployment.yaml
-    target:
-      kind: Deployment
-  - path: order-service-config.yaml
-    target:
-      kind: ConfigMap
+- path: patch-deployment.yaml
+  target:
+    kind: Deployment
+- path: order-service-config.yaml
+  target:
+    kind: ConfigMap
 
 images:
-  - name: app/tc-order-service
-    newName: 147671223315.dkr.ecr.us-east-1.amazonaws.com/app/tc-order-service
-    newTag: 93aa24524f637335a3e7de8d5cbc24406e8f7b8b-dev
+- name: app/tc-order-service
+  newName: 147671223315.dkr.ecr.us-east-1.amazonaws.com/app/tc-order-service
+  newTag: v0.4.0
