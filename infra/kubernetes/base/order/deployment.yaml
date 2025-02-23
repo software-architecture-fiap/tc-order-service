@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: order-service:latest
+          image: order-service:1.0.0
           ports:
             - containerPort: 8001
           resources:
@@ -26,21 +26,9 @@ spec:
               ephemeral-storage: "1Gi"
             limits:
               memory: "512Mi"
-              storage: "1Gi"
           envFrom:
             - configMapRef:
                 name: order-service-config
-                items:
-                  - key: DATABASE_HOST
-                    path: DATABASE_HOST
-                  - key: DATABASE_NAME
-                    path: DATABASE_NAME
-                  - key: DATABASE_PORT
-                    path: DATABASE_PORT
-                  - key: LOG_LEVEL
-                    path: LOG_LEVEL
-                  - key: SERVICE_PORT
-                    path: SERVICE_PORT
           volumeMounts:
             - name: env-file
               mountPath: /app/.env
